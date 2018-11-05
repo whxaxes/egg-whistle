@@ -10,7 +10,6 @@ module.exports = () => {
     const refererObj = url.parse(referer);
     const isRequestWhistle = ctx.url.startsWith(route);
     const isFromWhistle = refererObj.pathname && refererObj.pathname.startsWith(route);
-
     if (!app.whistle || (!isFromWhistle && !isRequestWhistle)) {
       // normal request
       return next();
@@ -24,7 +23,7 @@ module.exports = () => {
     const { host, port } = app.whistle;
 
     // create proxy server
-    const whistleOrigin = `http://${host}:${port}`;
+    const whistleOrigin = app.whistle.proxyUri;
     const server = http.request(
       {
         host,

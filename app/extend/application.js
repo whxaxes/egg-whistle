@@ -4,10 +4,8 @@ function proxyclient(app, HttpClient) {
   return class NewHttpClient extends HttpClient {
     request(reqUrl, args = {}, callback) {
       if (app.whistle) {
-        const result = reqUrl.match(/^(\w+):\/\//);
-        const protocol = result && result[1];
         args.enableProxy = true;
-        args.proxy = app.whistle.getProxyUri(protocol);
+        args.proxy = app.whistle.proxyUri;
       }
 
       return super.request(reqUrl, args, callback);

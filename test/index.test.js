@@ -16,18 +16,16 @@ describe('test/index.test.js', () => {
     const ctx = app.mockContext();
     await sleep(500);
     await new Promise(resolve => {
-      mm(app.whistle, 'getProxyUri', protocol => {
-        assert(protocol === 'https');
-        resolve();
+      mm(app, 'whistle', {
+        get proxyUri() { resolve(); },
       });
 
-      ctx.httpclient.curl('https://httptest.cnodejs.net/test/get');
+      ctx.httpclient.curl('http://httptest.cnodejs.net/test/get');
     });
 
     await new Promise(resolve => {
-      mm(app.whistle, 'getProxyUri', protocol => {
-        assert(protocol === 'http');
-        resolve();
+      mm(app, 'whistle', {
+        get proxyUri() { resolve(); },
       });
 
       app.curl('http://httptest.cnodejs.net/test/get');
@@ -40,7 +38,9 @@ describe('test/index.test.js', () => {
     app = mm.app({ baseDir: 'app' });
     await app.ready();
     await sleep(500);
-    assert(!!app.whistle.getProxyAgent());
+    const proxyAgent = app.whistle.proxyAgent;
+    assert(!!proxyAgent);
+    assert(proxyAgent === app.whistle.proxyAgent);
   });
 
   it('should visit whistle without error', async () => {

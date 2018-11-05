@@ -5,8 +5,8 @@ declare module "egg" {
     whistle?: {
       host: string;
       port: string;
-      getProxyUri(protocol: string): string;
-      getProxyAgent(protocol: string): any;
+      proxyUri: string;
+      proxyAgent: any;
     };
   }
 }
