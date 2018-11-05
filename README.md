@@ -53,7 +53,9 @@ exports.whistle = {
 };
 ```
 
-Start the egg application and visit `http://{your app host}:{your app port}/__whistle__`
+Starting the egg application and visit `http://{your app host}:{your app port}/__whistle__`
+
+eg.
 
 ```bash
 $ npx egg-bin dev
