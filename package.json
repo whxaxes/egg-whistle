@@ -3,7 +3,7 @@
   "eggPlugin": {
     "name": "whistle"
   },
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Using whistle in egg",
   "main": "index.js",
   "types": "index.d.ts",
@@ -14,6 +14,14 @@
     "lint": "eslint .",
     "ci": "npm run lint && egg-bin pkgfiles --check && npm run cov"
   },
+  "files": [
+    "app",
+    "config",
+    "lib",
+    "app.js",
+    "agent.js",
+    "index.d.ts"
+  ],
   "keywords": [
     "egg",
     "whistle"
