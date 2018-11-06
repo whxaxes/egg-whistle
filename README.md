@@ -3,9 +3,9 @@
 [![NPM version][npm-image]][npm-url]
 [![build status][travis-image]][travis-url]
 [![Test coverage][codecov-image]][codecov-url]
+[![Appveyor status][appveyor-image]][appveyor-url]
 [![David deps][david-image]][david-url]
 [![Known Vulnerabilities][snyk-image]][snyk-url]
-[![npm download][download-image]][download-url]
 
 [npm-image]: https://img.shields.io/npm/v/egg-whistle.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/egg-whistle
@@ -13,12 +13,12 @@
 [travis-url]: https://travis-ci.org/whxaxes/egg-whistle
 [codecov-image]: https://codecov.io/gh/whxaxes/egg-whistle/branch/master/graph/badge.svg
 [codecov-url]: https://codecov.io/gh/whxaxes/egg-whistle
+[appveyor-url]: https://ci.appveyor.com/project/whxaxes/egg-whistle/branch/master
+[appveyor-image]: https://ci.appveyor.com/api/projects/status/github/whxaxes/egg-whistle?branch=master&svg=true
 [david-image]: https://img.shields.io/david/whxaxes/egg-whistle.svg?style=flat-square
 [david-url]: https://david-dm.org/whxaxes/egg-whistle
 [snyk-image]: https://snyk.io/test/npm/egg-whistle/badge.svg?style=flat-square
 [snyk-url]: https://snyk.io/test/npm/egg-whistle
-[download-image]: https://img.shields.io/npm/dm/egg-whistle.svg?style=flat-square
-[download-url]: https://npmjs.org/package/egg-whistle
 
 Using whistle in egg application.
 
