@@ -67,7 +67,35 @@ open whistle
 $ open http://127.0.0.1:7001/__whistle__
 ```
 
-After application started, the request sent by `app.httpclient` or `ctx.httpclient` will be proxy by whistle, and you can debug proxy in whistle dashboard.
+After application started, The http request client in egg ( `app.httpclient` or `ctx.httpclient` ) will send requests through whistle proxy, and capture the request info in whistle dashboard.
+
+## Proxy Custom Requests
+
+`egg-whistle` only proxy the requests sent by `app.httpclient` or `ctx.httpclient` ( includes `ctx.curl` or `app.curl` ) in egg by default. If you want to proxy your own requests( like `http.request` or `websocket` ), `app.whistle.proxyAgent` may works for you.
+
+http
+
+```js
+// app.js
+
+const http = require('http');
+module.exports = app => {
+  http.request('http://xxx.com/xxx', { agent: app.whistle && app.whistle.proxyAgent })
+};
+```
+
+websocket
+
+```js
+// app.js
+
+const ws = require('WebSocket');
+module.exports = app => {
+  const socket = new WebSocket('ws://xxx.com/xxx', {
+    agent: app.whistle && app.whistle.proxyAgent
+  });
+};
+```
 
 ## Configuration
 
@@ -76,13 +104,21 @@ After application started, the request sent by `app.httpclient` or `ctx.httpclie
 
 exports.whistle = {
   // route: '/__whistle__', // whistle url
+  // ignore: undefined, // Array<RegExp> | RegExp, eg. /\/test\/.*/ or [ /\/test\/.*/ ]
   // storage: path.resolve(appInfo.root, 'logs/whistle'),
   // timeout: 3600,
   // see https://github.com/avwo/whistle to know more configuration
 }
 ```
 
-More configuration： https://github.com/avwo/whistle#install--setup ( support the most configuration of whistle except `localUIHost` `host` `port` `uiport` `version`  )
+plugin config
+
+- **route**  whistle dashboard path
+- **ignore**  ignore url`Array<RegExp> | RegExp, eg. /\/test\/.*/ or [ /\/test\/.*/ ]` only works for httpclient in egg.
+
+whistle config
+
+See https://github.com/avwo/whistle#install--setup ( support the most configuration of whistle except `localUIHost` `host` `port` `uiport` `version`  )
 
 ## Lincense
 

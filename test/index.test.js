@@ -34,6 +34,35 @@ describe('test/index.test.js', () => {
     await app.close();
   });
 
+  it('should ignore one request', async () => {
+    app = mm.app({ baseDir: 'app' });
+    await app.ready();
+    const ctx = app.mockContext();
+    await sleep(500);
+    mm(app.config.whistle, 'ignore', /\/test\/.*/);
+    mm(app, 'whistle', { get proxyUri() { throw new Error('should not use whistle'); } });
+    ctx.httpclient.curl('http://httptest.cnodejs.net/test/get');
+    await sleep(500);
+    await app.close();
+  });
+
+  it('should ignore multiple request', async () => {
+    app = mm.app({ baseDir: 'app' });
+    await app.ready();
+    const ctx = app.mockContext();
+    await sleep(500);
+    mm(app.config.whistle, 'ignore', [
+      /\/test\/get/,
+      /\/test\/set/,
+    ]);
+
+    mm(app, 'whistle', { get proxyUri() { throw new Error('should not use whistle'); } });
+    ctx.httpclient.curl('http://httptest.cnodejs.net/test/get');
+    ctx.httpclient.curl('http://httptest.cnodejs.net/test/set');
+    await sleep(500);
+    await app.close();
+  });
+
   it('should has custom agent', async () => {
     app = mm.app({ baseDir: 'app' });
     await app.ready();
@@ -115,6 +144,7 @@ describe('test/index.test.js', () => {
       .httpRequest()
       .get('/weinre/client')
       .set('Referer', 'http://127.0.0.1:7001/__whistle__')
+      .set('Accept', 'text/html')
       .expect(302)
       .then(res => {
         assert(res.headers.location === '/__whistle__/weinre/client');

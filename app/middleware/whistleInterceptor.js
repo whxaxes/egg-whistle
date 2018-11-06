@@ -15,8 +15,13 @@ module.exports = () => {
       return next();
     }
 
-    if (isFromWhistle && ctx.url.startsWith('/weinre')) {
-      // redirect to whistle if referer is whistle but request weinre url
+    if (
+      !isRequestWhistle &&
+      isFromWhistle &&
+      ctx.method === 'GET' &&
+      ctx.get('accept').includes('text/html')
+    ) {
+      // redirect to whistle if referer is whistle and accept header has `text/html`
       return ctx.redirect(`${route}${ctx.url}`);
     }
 
