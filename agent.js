@@ -14,7 +14,9 @@ module.exports = agent => {
   });
 
   agent.messenger.on('egg-ready', ({ port }) => {
-    agent.logger.info(`[egg-whistle] whistle started on http://127.0.0.1:${port}${agent.config.whistle.route}`);
+    agent.logger.info(
+      `[egg-whistle] whistle started on http://127.0.0.1:${port}${agent.config.whistle.route}`
+    );
   });
 
   agent.beforeStart(async () => {
@@ -35,7 +37,17 @@ function runWhistle(app, port) {
   const config = app.config.whistle;
   const argv = [ 'run', '-l', whistleHost, '-p', port ];
   const logger = app.logger;
-  const ignoreConfigList = [ 'help', 'localUIHost', 'host', 'port', 'uiport', 'version', 'route' ];
+  const ignoreConfigList = [
+    'help',
+    'localUIHost',
+    'host',
+    'port',
+    'uiport',
+    'version',
+    'route',
+    'ignore',
+  ];
+
   Object.keys(config).forEach(k => {
     // ignore some configuration of whistle
     if (config[k] && !ignoreConfigList.includes(k)) {
