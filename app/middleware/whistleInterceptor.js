@@ -1,5 +1,7 @@
 const url = require('url');
 const http = require('http');
+const through = require('through2');
+const sourceRE = /("|')(?:\/)?((?:js|img)\/[^"']+)("|')/g;
 
 module.exports = () => {
   return async function whistleInterceptor(ctx, next) {
@@ -65,9 +67,22 @@ module.exports = () => {
         // add proxy flag to header
         headers['x-proxy-to'] = whistleOrigin;
 
+        let stream = ctx.res;
+        const contentType = headers['content-type'] || '';
+        if (contentType.includes('text/html')) {
+          // replace sources in html
+          stream = through.obj((chunk, enc, done) => {
+            let info = chunk.toString();
+            info = info.replace(sourceRE, (source, l, m, r) => `${l}${route}/${m}${r}`);
+            done(null, info);
+          });
+
+          stream.pipe(ctx.res);
+        }
+
         // pipe data to response
         ctx.res.writeHead(resp.statusCode, headers);
-        resp.pipe(ctx.res);
+        resp.pipe(stream);
       }
     );
 

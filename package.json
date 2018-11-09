@@ -32,7 +32,7 @@
     "get-port": "^4.0.0",
     "proxy-agent": "^3.0.3",
     "through2": "^2.0.3",
-    "whistle": "^1.12.17"
+    "whistle": "^1.13.1"
   },
   "devDependencies": {
     "@types/node": "^10.9.4",
