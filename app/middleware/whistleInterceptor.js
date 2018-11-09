@@ -37,6 +37,7 @@ module.exports = () => {
         port,
         path: isRequestWhistle ? ctx.url.substring(route.length) || '/' : ctx.url,
         method: ctx.method,
+        agent: false,
         headers: {
           ...ctx.headers,
 
