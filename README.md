@@ -106,7 +106,7 @@ global agent
 ```js
 // app.js
 
-const ws = require('WebSocket');
+const http = require('http');
 module.exports = app => {
   app.whistle.on('ready', () => {
     http.globalAgent = app.whistle.proxyAgent;
