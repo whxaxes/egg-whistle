@@ -1,4 +1,10 @@
 
+1.1.3 / 2018-11-09
+==================
+
+  * test: complete unittest
+  * feat: add proxy to agent worker
+
 1.1.2 / 2018-11-09
 ==================
 
