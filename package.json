@@ -3,7 +3,7 @@
   "eggPlugin": {
     "name": "whistle"
   },
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Using whistle in egg",
   "main": "index.js",
   "types": "index.d.ts",
