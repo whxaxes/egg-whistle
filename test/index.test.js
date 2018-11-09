@@ -35,6 +35,14 @@ describe('test/index.test.js', () => {
       app.curl('http://httptest.cnodejs.net/test/get');
     });
 
+    await new Promise(resolve => {
+      mm(app.agent, 'whistle', {
+        get proxyUri() { resolve(); },
+      });
+
+      app.agent.curl('http://httptest.cnodejs.net/test/get');
+    });
+
     await app.close();
   });
 
