@@ -1,7 +1,6 @@
 const { fork, exec } = require('child_process');
 const getPort = require('get-port');
 const constant = require('./lib/constant');
-const Whistle = require('./lib/whistle');
 const whistleHost = '127.0.0.1';
 const addressConfig = {};
 
@@ -14,6 +13,7 @@ module.exports = agent => {
   });
 
   agent.messenger.on('egg-ready', ({ port }) => {
+    agent.whistle.init(addressConfig);
     agent.logger.info(
       `[egg-whistle] whistle started on http://127.0.0.1:${port}${agent.config.whistle.route}`
     );
@@ -25,7 +25,6 @@ module.exports = agent => {
       .then(() => {
         addressConfig.host = whistleHost;
         addressConfig.port = port;
-        agent.whistle = new Whistle(agent, addressConfig);
       })
       .catch(e => {
         agent.logger.error('[egg-whistle] whistle start fail: ' + e.message);

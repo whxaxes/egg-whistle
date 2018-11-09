@@ -1,4 +1,6 @@
+const Whistle = require('../../lib/whistle');
 const PROXY_HTTP_CLIENT = Symbol('application#proxyHttpClient');
+const APP_WHISTLE = Symbol('application#whistle');
 
 // check ignore request
 function checkIgnore(ignore, url) {
@@ -34,5 +36,13 @@ module.exports = {
     }
 
     return this[PROXY_HTTP_CLIENT];
+  },
+
+  get whistle() {
+    if (!this[APP_WHISTLE]) {
+      this[APP_WHISTLE] = new Whistle(this);
+    }
+
+    return this[APP_WHISTLE];
   },
 };

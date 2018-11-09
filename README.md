@@ -80,7 +80,9 @@ http
 
 const http = require('http');
 module.exports = app => {
-  http.request('http://xxx.com/xxx', { agent: app.whistle && app.whistle.proxyAgent })
+  app.whistle.on('ready', () => {
+    http.request('http://xxx.com/xxx', { agent: app.whistle.proxyAgent });
+  });
 };
 ```
 
@@ -91,8 +93,23 @@ websocket
 
 const ws = require('WebSocket');
 module.exports = app => {
-  const socket = new WebSocket('ws://xxx.com/xxx', {
-    agent: app.whistle && app.whistle.proxyAgent
+  app.whistle.on('ready', () => {
+    const socket = new WebSocket('ws://xxx.com/xxx', {
+      agent: app.whistle.proxyAgent,
+    });
+  });
+};
+```
+
+global agent
+
+```js
+// app.js
+
+const ws = require('WebSocket');
+module.exports = app => {
+  app.whistle.on('ready', () => {
+    http.globalAgent = app.whistle.proxyAgent;
   });
 };
 ```

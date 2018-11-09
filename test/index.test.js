@@ -5,6 +5,10 @@ const sleep = time => new Promise(resolve => setTimeout(resolve, time));
 describe('test/index.test.js', () => {
   let app;
 
+  const whistleReady = app => {
+    return new Promise(resolve => app.whistle.on('ready', resolve));
+  };
+
   afterEach(async () => {
     mm.restore();
     await app.close();
@@ -14,7 +18,7 @@ describe('test/index.test.js', () => {
     app = mm.app({ baseDir: 'app' });
     await app.ready();
     const ctx = app.mockContext();
-    await sleep(500);
+    await whistleReady(app);
     await new Promise(resolve => {
       mm(app, 'whistle', {
         get proxyUri() { resolve(); },
@@ -38,7 +42,7 @@ describe('test/index.test.js', () => {
     app = mm.app({ baseDir: 'app' });
     await app.ready();
     const ctx = app.mockContext();
-    await sleep(500);
+    await whistleReady(app);
     mm(app.config.whistle, 'ignore', /\/test\/.*/);
     mm(app, 'whistle', { get proxyUri() { throw new Error('should not use whistle'); } });
     ctx.httpclient.curl('http://httptest.cnodejs.net/test/get');
@@ -50,7 +54,7 @@ describe('test/index.test.js', () => {
     app = mm.app({ baseDir: 'app' });
     await app.ready();
     const ctx = app.mockContext();
-    await sleep(500);
+    await whistleReady(app);
     mm(app.config.whistle, 'ignore', [
       /\/test\/get/,
       /\/test\/set/,
@@ -66,7 +70,7 @@ describe('test/index.test.js', () => {
   it('should has custom agent', async () => {
     app = mm.app({ baseDir: 'app' });
     await app.ready();
-    await sleep(500);
+    await whistleReady(app);
     const proxyAgent = app.whistle.proxyAgent;
     assert(!!proxyAgent);
     assert(proxyAgent === app.whistle.proxyAgent);
