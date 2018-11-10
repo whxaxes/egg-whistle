@@ -6,6 +6,10 @@ module.exports = app => {
     app.messenger.sendToAgent(constant.SYNC_CONFIG);
     app.messenger.on(constant.SYNC_CONFIG, info => {
       app.whistle.init(info);
+
+      app.messenger.sendToAgent(constant.APP_WHISTLE_READY, {
+        port: app.server.address().port,
+      });
     });
   });
 };

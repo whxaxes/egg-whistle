@@ -19,6 +19,7 @@ function proxyclient(app, HttpClient) {
       if (app.whistle && !checkIgnore(app.config.whistle.ignore, reqUrl)) {
         args.enableProxy = true;
         args.proxy = app.whistle.proxyUri;
+        args.rejectUnauthorized = false; // do not check ssl
       }
 
       return super.request(reqUrl, args, callback);

@@ -12,11 +12,12 @@ module.exports = agent => {
     }
   });
 
-  agent.messenger.on('egg-ready', ({ port }) => {
+  agent.messenger.once(constant.APP_WHISTLE_READY, ({ port }) => {
+    agent.logger.info(`[egg-whistle] whistle started on http://127.0.0.1:${port}${agent.config.whistle.route}`);
+  });
+
+  agent.messenger.on('egg-ready', () => {
     agent.whistle.init(addressConfig);
-    agent.logger.info(
-      `[egg-whistle] whistle started on http://127.0.0.1:${port}${agent.config.whistle.route}`
-    );
   });
 
   agent.beforeStart(async () => {
