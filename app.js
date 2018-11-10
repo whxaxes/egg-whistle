@@ -8,7 +8,7 @@ module.exports = app => {
       app.whistle.init(info);
 
       app.messenger.sendToAgent(constant.APP_WHISTLE_READY, {
-        port: app.server.address().port,
+        port: (app.server && app.server.address().port) || info.port,
       });
     });
   });
