@@ -12,7 +12,7 @@ module.exports = () => {
     const refererObj = url.parse(referer);
     const isRequestWhistle = ctx.url.startsWith(route);
     const isFromWhistle = refererObj.pathname && refererObj.pathname.startsWith(route);
-    if (!app.whistle || (!isFromWhistle && !isRequestWhistle)) {
+    if (!app.whistle.port || (!isFromWhistle && !isRequestWhistle)) {
       // normal request
       return next();
     }
