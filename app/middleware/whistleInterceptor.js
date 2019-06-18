@@ -42,7 +42,7 @@ module.exports = () => {
           ...ctx.headers,
 
           // overwrite host and origin with whistle server
-          host,
+          host: `${host}:${port}`,
           origin: whistleOrigin,
         },
       },
