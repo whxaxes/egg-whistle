@@ -29,17 +29,18 @@
   "author": "whxaxes <whxaxes@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "get-port": "^4.0.0",
-    "proxy-agent": "^3.0.3",
-    "through2": "^2.0.3",
-    "whistle": "^1.13.1"
+    "get-port": "5.0.0",
+    "proxy-agent": "3.1.0",
+    "through2": "3.0.1",
+    "whistle": "1.15.1"
   },
   "devDependencies": {
     "@types/node": "^10.9.4",
+    "autod": "^3.1.0",
     "egg": "^2.12.0",
     "egg-bin": "^4.8.3",
     "egg-ci": "^1.1.0",
-    "egg-mock": "^3.20.1",
+    "egg-mock": "3.23.1",
     "eslint": "^5.5.0",
     "eslint-config-egg": "^7.1.0"
   },
