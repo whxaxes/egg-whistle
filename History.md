@@ -1,4 +1,10 @@
 
+1.2.0 / 2019-06-19
+==================
+
+**features**
+  * [[`c754e9d`](http://github.com/whxaxes/egg-whistle/commit/c754e9d0aeb3336005d700f368b9ad83561e9e7f)] - feat: upgrade version of deps (wanghx <<whx89768@alibaba-inc.com>>)
+
 1.1.5 / 2019-06-18
 ==================
 
