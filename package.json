@@ -30,7 +30,7 @@
   "license": "MIT",
   "dependencies": {
     "get-port": "5.0.0",
-    "proxy-agent": "3.1.0",
+    "proxy-agent": "5.0.0",
     "through2": "3.0.1",
     "whistle": "1.15.1"
   },
